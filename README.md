@@ -1,4 +1,4 @@
-# SDM
+# GBIF
 
 The Global Biodiversity Information Facility (GBIF) provides open access database on species occurrence records all over the world.
 The species records are then used in species distribution modelling for mapping habitat suitability of the given species.
