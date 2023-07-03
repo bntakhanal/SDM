@@ -1,5 +1,4 @@
 ##----------------A code for extracting and cleaning GBIF data----------------##
-##-----------------------The Landbanking Group--------------------------------##
 
 ## Further information on GBIF data at "https://www.gbif.org/".
 
@@ -7,10 +6,8 @@
 ## Install required packages
 ##============================================================================##
 if(!require(rgbif)){install.packages("rgbif");library(rgbif)}
-if(!require(sp)){install.packages("sp");library(sp)}
 if(!require(sf)){install.packages("sf");library(sf)}
 if(!require(raster)){install.packages("raster");library(raster)}
-if(!require(rgdal)){install.packages("rgdal");library(rgdal)}
 if(!require(CoordinateCleaner)){install.packages("CoordinateCleaner");library(CoordinateCleaner)}
 
 ##============================================================================##
@@ -19,7 +16,7 @@ if(!require(CoordinateCleaner)){install.packages("CoordinateCleaner");library(Co
 setwd("~/Library/CloudStorage/OneDrive-TheLandbankingGroupGmbH/SDM")
 
 ##============================================================================##
-## Import the data files
+## Import the data on list of species
 ##============================================================================##
 species_list <- c(scan(file="GBIF/species_list_terr.txt", what = "", sep = "\n"))
 
@@ -34,7 +31,7 @@ d <- occ_data(scientificName = species_list,
                     MACHINE_OBSERVATION;OBSERVATION;OCCURRENCE",
                     hasGeospatialIssue = "FALSE",
                     year = "2016,2023",
-                    limit=10000,
+                    limit = 10000,
                     coordinateUncertaintyInMeters = "0,50000"
                     )
 
