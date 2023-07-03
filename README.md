@@ -1,5 +1,4 @@
 # SDM
-A code for GBIF data retrieval
 Further information on GBIF data at "https://www.gbif.org/".
 
 The Global Biodiversity Information Facility (GBIF) provides open access database on species occurrence.
