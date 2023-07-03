@@ -18,7 +18,7 @@ setwd("~/Library/CloudStorage/OneDrive-TheLandbankingGroupGmbH/SDM")
 ##============================================================================##
 ## Import the data on list of species
 ##============================================================================##
-species_list <- c(scan(file="GBIF/species_list_terr.txt", what = "", sep = "\n"))
+species_list <- c(scan(file = "GBIF/species_list_terr.txt", what = "", sep = "\n"))
 
 ##============================================================================##
 ## GBIF data acquisition
@@ -37,7 +37,7 @@ d <- occ_data(scientificName = species_list,
 
 df = list()
 for (i in 1:length(d)){
-  df[[i]] =cbind.data.frame(d[[i]][["data"]][["gbifID"]],
+  df[[i]] = cbind.data.frame(d[[i]][["data"]][["gbifID"]],
                             d[[i]][["data"]][["decimalLongitude"]],
                             d[[i]][["data"]][["decimalLatitude"]],
                             d[[i]][["data"]][["scientificName"]],
@@ -56,9 +56,9 @@ for (i in 1:length(d)){
                    value = "clean", verbose = TRUE)
   
   # Identify and remove duplicate coordinates
-  df[[i]] =cc_dupl(df[[i]], lon = "Longitude", lat = "Latitude", 
-                   species = "scientificName",
-                   additions = NULL, value = "clean", verbose = TRUE)
+  df[[i]] = cc_dupl(df[[i]], lon = "Longitude", lat = "Latitude", 
+                    species = "scientificName",
+                    additions = NULL, value = "clean", verbose = TRUE)
   
   # Identify and remove coordinates outside the reference landmass
   df[[i]] = cc_sea(df[[i]], lon = "Longitude", lat = "Latitude",
@@ -66,7 +66,7 @@ for (i in 1:length(d)){
   
   downloadDate = Sys.Date()
   df[[i]]["downloadDate"] = downloadDate
-  df[[i]]["presence"] = 1
+  df[[i]]["occ"] = 1
   
   # Printing the number of species before and after clean-up.
   print(species_list[[i]])
@@ -75,7 +75,7 @@ for (i in 1:length(d)){
   
   # Assigning projection and writing spatial files
   projcrs <- "+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"
-  df[[i]] <- st_as_sf(x=df[[i]],
+  df[[i]] <- st_as_sf(x = df[[i]],
                       coords = c("Longitude", "Latitude"),
                       crs = projcrs)
   
@@ -83,7 +83,7 @@ for (i in 1:length(d)){
   species_list = gsub(" ", "_", species_list) 
   sf::st_write(df[[i]],
                dsn = paste0(getwd(), "/GBIF/GBIF_output/", species_list[[i]], ".gpkg"),
-               delete_layer =TRUE)
+               delete_layer = TRUE)
   
 }
 
